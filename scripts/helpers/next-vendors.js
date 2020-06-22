@@ -5,7 +5,7 @@
 hexo.extend.helper.register('js_vendors', function() {
   let { config, theme } = this;
   let vendors = {
-    anime: 'anime.min.js'
+    anime: 'lib/anime.min.js'
   };
   if (config.prismjs.enable && !config.prismjs.preprocess) {
     vendors.prism = '//cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js';
@@ -15,7 +15,7 @@ hexo.extend.helper.register('js_vendors', function() {
     }
   }
   if (theme.pjax) {
-    vendors.pjax = 'pjax/pjax.min.js';
+    vendors.pjax = '//cdn.jsdelivr.net/gh/next-theme/pjax@0/pjax.min.js';
   }
   if (theme.fancybox) {
     vendors.jquery = '//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js';
@@ -31,8 +31,8 @@ hexo.extend.helper.register('js_vendors', function() {
     vendors.pangu = '//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js';
   }
   if (theme.motion.enable) {
-    vendors.velocity = 'velocity/velocity.min.js';
-    vendors.velocity_ui = 'velocity/velocity.ui.min.js';
+    vendors.velocity = 'lib/velocity/velocity.min.js';
+    vendors.velocity_ui = 'lib/velocity/velocity.ui.min.js';
   }
   return vendors;
 });
