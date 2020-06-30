@@ -11,6 +11,10 @@
   +tablet-mobile() {
     display: none;
   }
+
+  if (hexo-config('motion.enable') && hexo-config('motion.transition.sidebar')) {
+    opacity: 0;
+  }
 }
 
 .sidebar-toggle {
@@ -23,10 +27,6 @@
   box-shadow: $box-shadow;
   box-sizing: border-box;
   color: var(--text-color);
-
-  if (hexo-config('motion.enable') && hexo-config('motion.transition.sidebar')) {
-    opacity: 0;
-  }
 }
 
 .site-state-item a {
@@ -72,26 +72,15 @@
   a, span.exturl {
     border-bottom: none;
     display: block;
-    text-decoration: none;
-
-    &::before {
-      display: none;
-    }
 
     &:hover {
       background: var(--body-bg-color);
       border-radius: 4px;
     }
   }
-
-  .fa, .fab, .far, .fas {
-    margin-right: 2px;
-  }
 }
 
 .links-of-blogroll-item {
-  //padding: 0;
-
   if (hexo-config('links_settings.layout') == 'inline') {
     display: inline-block;
     sidebar-inline-links-item();
