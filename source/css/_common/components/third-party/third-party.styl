@@ -5,3 +5,8 @@
 @import 'related-posts' if (hexo-config('related_posts.enable'));
 
 @import 'math' if (hexo-config('math.mathjax.enable'));
+
+.use-motion .animated {
+  // Fix issue #46 .animated in .sidebar
+  visibility: inherit;
+}
