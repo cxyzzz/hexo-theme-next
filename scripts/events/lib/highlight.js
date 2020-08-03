@@ -1,13 +1,21 @@
+'use strict';
+
 const fs = require('fs');
 const path = require('path');
 
-function resolve(package) {
-  return path.dirname(require.resolve(`${package}/package.json`));
+function resolve(name, file) {
+  let dir;
+  try {
+    dir = path.dirname(require.resolve(`${name}/package.json`));
+  } catch (error) {
+    return '';
+  }
+  return `${dir}/${file}`;
 }
 
 function highlightTheme(name) {
-  let file = `${resolve('highlight.js')}/styles/${name}.css`;
-  let css = fs.readFileSync(file).toString();
+  const file = resolve('highlight.js', `styles/${name}.css`);
+  const css = fs.readFileSync(file).toString();
   let rule = '';
   let background = '';
   let foreground = '';
@@ -28,14 +36,14 @@ function highlightTheme(name) {
 }
 
 function prismTheme(name) {
-  let file = `${resolve('prismjs')}/themes/${name}.css`;
-  if (!fs.existsSync(file)) file = `${resolve('prism-themes')}/themes/${name}.css`;
+  let file = resolve('prismjs', `themes/${name}.css`);
+  if (!fs.existsSync(file)) file = resolve('prism-themes', `themes/${name}.css`);
   return file;
 }
 
 module.exports = hexo => {
-  let { config } = hexo;
-  let theme = hexo.theme.config;
+  const { config } = hexo;
+  const theme = hexo.theme.config;
   config.highlight.hljs = false;
   config.prismjs = config.prismjs || {};
   theme.highlight = {
@@ -47,6 +55,6 @@ module.exports = hexo => {
     enable: config.prismjs.enable,
     light : prismTheme(theme.codeblock.prism.light),
     dark  : prismTheme(theme.codeblock.prism.dark),
-    number: `${resolve('prismjs')}/plugins/line-numbers/prism-line-numbers.css`
+    number: resolve('prismjs', 'plugins/line-numbers/prism-line-numbers.css')
   };
 };
