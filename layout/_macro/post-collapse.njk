@@ -59,7 +59,6 @@
 
   <article itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
-
       <div class="post-meta">
         <time itemprop="dateCreated"
               datetime="{{ moment(post.date).format() }}"
@@ -80,6 +79,7 @@
         {%- endif %}
       </div>
 
+      {{ post_gallery(post.photos) }}
     </header>
   </article>
 

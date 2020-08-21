@@ -15,17 +15,27 @@ hexo.extend.helper.register('next_inject', function(point) {
     .join('');
 });
 
-hexo.extend.helper.register('next_js', function(url) {
+hexo.extend.helper.register('next_js', function(file, pjax = false) {
   const { next_version } = this;
-  const { js } = this.theme;
   const { internal } = this.theme.vendors;
-  let src = `${js}/${url}`;
-  if (internal === 'jsdelivr') {
-    src = `//cdn.jsdelivr.net/npm/hexo-theme-next@${next_version}/source/js/${url}`;
-  } else if (internal === 'unpkg') {
-    src = `//unpkg.com/hexo-theme-next@${next_version}/source/js/${url}`;
-  }
-  return this.js(src);
+  const links = {
+    local   : this.url_for(`${this.theme.js}/${file}`),
+    jsdelivr: `//cdn.jsdelivr.net/npm/hexo-theme-next@${next_version}/source/js/${file}`,
+    unpkg   : `//unpkg.com/hexo-theme-next@${next_version}/source/js/${file}`
+  };
+  const src = links[internal] || links.local;
+  return `<script ${pjax ? 'data-pjax ' : ''}src="${src}"></script>`;
+});
+
+hexo.extend.helper.register('post_gallery', function(photos) {
+  if (!photos || !photos.length) return '';
+  const content = photos.map(photo => `
+    <div class="post-gallery-image">
+      <img src="${this.url_for(photo)}" itemprop="contentUrl">
+    </div>`).join('');
+  return `<div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+    ${content}
+    </div>`;
 });
 
 hexo.extend.helper.register('post_edit', function(src) {
@@ -37,40 +47,9 @@ hexo.extend.helper.register('post_edit', function(src) {
   });
 });
 
-hexo.extend.helper.register('post_nav', function(post) {
-  const { theme } = this;
-  if (theme.post_navigation === false || (!post.prev && !post.next)) return '';
-  const prev = theme.post_navigation === 'right' ? post.prev : post.next;
-  const next = theme.post_navigation === 'right' ? post.next : post.prev;
-  const left = prev ? `
-    <a href="${this.url_for(prev.path)}" rel="prev" title="${prev.title}">
-      <i class="fa fa-chevron-left"></i> ${prev.title}
-    </a>` : '';
-  const right = next ? `
-    <a href="${this.url_for(next.path)}" rel="next" title="${next.title}">
-      ${next.title} <i class="fa fa-chevron-right"></i>
-    </a>` : '';
-  return `
-    <div class="post-nav">
-      <div class="post-nav-item">${left}</div>
-      <div class="post-nav-item">${right}</div>
-    </div>`;
-});
-
 hexo.extend.helper.register('gitalk_md5', function(path) {
   const str = this.url_for(path);
-  str.replace('index.html', '');
   return crypto.createHash('md5').update(str).digest('hex');
-});
-
-hexo.extend.helper.register('canonical', function() {
-  // https://support.google.com/webmasters/answer/139066
-  const { permalink } = hexo.config;
-  let url = this.url.replace(/index\.html$/, '');
-  if (!permalink.endsWith('.html')) {
-    url = url.replace(/\.html$/, '');
-  }
-  return `<link rel="canonical" href="${url}">`;
 });
 
 /**

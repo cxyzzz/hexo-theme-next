@@ -43,6 +43,8 @@
     bottom: 0;
     content: '';
     height: 2px;
+    // Fix issue #75
+    left: 0;
     position: absolute;
     transform: scaleX(0);
     transition: transform $transition-ease;
@@ -57,6 +59,11 @@
     font-size: $font-size-small;
     margin-left: 5px;
   }
+}
+
+.post-sticky-flag {
+  display: inline-block;
+  transform: rotate(30deg);
 }
 
 .posts-expand .post-meta {
@@ -76,21 +83,14 @@
   }
 }
 
-.post-meta .post-meta-item + .post-meta-item::before {
+// .post-meta-item exists in .post-meta and footer
+.post-meta-item + .post-meta-item::before {
   content: '|';
-  margin: 0 .5em;
-}
-
-.post-meta-divider {
   margin: 0 .5em;
 }
 
 .post-meta-item-icon {
   margin-right: 3px;
-
-  +tablet-mobile() {
-    display: inline-block;
-  }
 }
 
 .post-meta-item-text {
