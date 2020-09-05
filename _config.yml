@@ -79,7 +79,6 @@ creative_commons:
 # Usage: `Key: /link/ || icon`
 # Key is the name of menu item. If the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used. Key is case-senstive.
 # Value before `||` delimiter is the target link, value after `||` delimiter is the name of Font Awesome icon.
-# When running the site in a subdirectory (e.g. yoursite.com/blog), remove the leading slash from link value (/archives -> archives).
 # External url should start with http:// or https://
 menu:
   #home: / || fa fa-home
@@ -165,7 +164,7 @@ links_settings:
   layout: block
 
 links:
-  #Title: http://yoursite.com
+  #Title: https://example.com
 
 # Table of Contents in the Sidebar
 # Front-matter variable (unsupport wrap expand_all).
@@ -217,7 +216,7 @@ footer:
   # Powered by Hexo & NexT
   powered: true
 
-  # Beian ICP and gongan information for Chinese users. See: http://www.beian.miit.gov.cn, http://www.beian.gov.cn
+  # Beian ICP and gongan information for Chinese users. See: https://beian.miit.gov.cn, http://www.beian.gov.cn
   beian:
     enable: false
     icp:
@@ -495,10 +494,10 @@ baidu_push: false
 # See: https://theme-next.js.org/docs/third-party-services/math-equations
 # Server-side plugin: https://github.com/next-theme/hexo-filter-mathjax
 math:
-  # Default (true) will load mathjax / katex script on demand.
+  # Default (false) will load mathjax / katex script on demand.
   # That is it only render those page which has `mathjax: true` in Front-matter.
-  # If you set it to false, it will load mathjax / katex srcipt EVERY PAGE.
-  per_page: true
+  # If you set it to true, it will load mathjax / katex srcipt EVERY PAGE.
+  every_page: false
 
   mathjax:
     enable: false
@@ -582,7 +581,6 @@ disqus:
   enable: false
   shortname:
   count: true
-  #post_meta_order: 0
 
 # DisqusJS
 # Alternative Disqus - Render comment component using Disqus API.
@@ -603,7 +601,6 @@ changyan:
   enable: false
   appid:
   appkey:
-  #post_meta_order: 0
 
 # Valine
 # For more information: https://valine.js.org, https://github.com/xCss/Valine
@@ -622,7 +619,6 @@ valine:
   serverURLs: # When the custom domain name is enabled, fill it in here (it will be detected automatically by default, no need to fill in)
   enableQQ: false # Whether to enable the Nickname box to automatically get QQ Nickname and QQ Avatar
   requiredFields: [] # Set required fields: [nick] | [nick, mail]
-  #post_meta_order: 0
 
 # LiveRe comments system
 # You can get your uid from https://livere.com/insight/myCode (General web site)
